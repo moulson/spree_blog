@@ -1,5 +1,13 @@
-<% content_for :post_title do %>
-  <%= Spree.t(:editing_resource, resource: Spree::Page.model_name.human) %>
-<% end %>
+<div class="row">
+  <div class="col-md-12">
+    <h1 class="float-left">Edit Post</h1>
+  </div>
+</div>
 
-<%= render 'form', resource: @post %>
+<hr>
+
+<div class="row">
+  <div class="col-md-12">
+    <%= render 'form', resource: @post %>
+  </div>
+</div>

@@ -8,6 +8,7 @@ class CreatePosts < SpreeExtension::Migration[5.2]
       t.string :meta_keywords
       t.string :meta_description
       t.string :meta_title
+      t.integer :user_id
       t.boolean :published
 
       t.timestamps null: false

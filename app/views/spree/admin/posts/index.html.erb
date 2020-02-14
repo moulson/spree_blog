@@ -1,45 +1,58 @@
-<% content_for :post_title do %>
-  <%= plural_resource_name(Spree::Post) %>
-<% end %>
-
-<% content_for :post_actions do %>
-  <%= button_link_to "New Post", new_object_url, icon: 'plus', class: 'btn-primary', id: 'admin_new_post' %>
-<% end %>
-
-<% if @posts.any? %>
-  <table class="table" id="listing_posts" data-hook>
-    <colgroup>
-      <col style="width: 40%">
-      <col style="width: 35%">
-      <col style="width: 10%">
-      <col style="width: 15%">
-    </colgroup>
-    <thead>
-      <tr data-hook="admin_posts_index_headers">
-        <th>Title</th>
-        <th class="text-center">Published?</th>
-        <th data-hook="admin_posts_index_header_actions" class="actions"></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @posts.each do |post| %>
-        <tr data-hook="admin_posts_index_rows" class="<%= cycle('odd', 'even') %>" id="<%= dom_id post %>">
-          <td><%= post.title %></td>
-          <td class="text-center"><%= content_tag(:i, '', class: 'icon icon-ok') if post.published %></td>
-          <td class="actions text-right" data-hook="admin_posts_index_row_actions">
-            <%= link_to_edit post, no_text: true %>
-            <% if defined?(SpreeGlobalize) %>
-              <%= link_to content_tag(:span, '', class: 'icon icon-translate'), spree.admin_post_path(post.id), class: 'btn btn-primary btn-sm icon-link with-tip' %>
-            <% end %>
-            <%= link_to_delete post, no_text: true %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% else %>
-  <div class="alert alert-warning no-objects-found">
-    No Posts found
-    <%= link_to "Create Post", spree.new_admin_post_path %>!
+<div class="row">
+  <div class="col-md-12">
+    <h1 class="float-left">Blog Posts</h1>
+    <%= button_link_to "New Post", new_object_url, icon: 'plus', class: 'btn-primary float-right mt-3', id: 'admin_new_post' %>
   </div>
-<% end %>
+</div>
+
+<hr>
+
+<div class="row">
+  <div class="col-md-12">
+    <% if @posts.any? %>
+      <table class="table" id="listing_posts" data-hook>
+        <colgroup>
+          <col style="width: 20%">
+          <col style="width: 40%">
+          <col style="width: 15%">
+          <col style="width: 10%">
+          <col style="width: 15%">
+        </colgroup>
+        <thead>
+          <tr data-hook="admin_posts_index_headers">
+            <th class="text-center">Image</th>
+            <th>Title</th>
+            <th class="text-center">Author</th>
+            <th class="text-center">Created On</th>
+            <th class="text-center">Published?</th>
+            <th data-hook="admin_posts_index_header_actions" class="actions"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @posts.each do |post| %>
+            <tr data-hook="admin_posts_index_rows" class="<%= cycle('odd', 'even') %>" id="<%= dom_id post %>">
+              <td><%- if post.image.attached? %><%= image_tag(post.thumb, style: "object-fit: contain;") %><% end %></td>
+              <td><%= post.title %></td>
+              <td class="text-center"><%= post.author %></td>
+              <td class="text-center"><%= post.created_at.strftime("%D") %></td>
+              <td class="text-center"><%= content_tag(:i, '', class: 'icon icon-ok') if post.published %></td>
+              <td class="actions text-right" data-hook="admin_posts_index_row_actions">
+                <%= link_to_edit post, no_text: true %>
+                <% if defined?(SpreeGlobalize) %>
+                  <%= link_to content_tag(:span, '', class: 'icon icon-translate'), spree.admin_post_path(post.id), class: 'btn btn-primary btn-sm icon-link with-tip' %>
+                <% end %>
+                <%= link_to_delete post, no_text: true %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <div class="alert alert-warning no-objects-found">
+        No Posts found
+        <%= link_to "Create Post", spree.new_admin_post_path %>!
+      </div>
+    <% end %>
+  </div>
+</div>
+

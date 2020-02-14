@@ -2,9 +2,9 @@
   <%= button_link_to Spree.t(:back_to_resource_list, resource: plural_resource_name(Spree::Page)), spree.admin_posts_path, icon: 'arrow-left', class: 'btn-primary' %>
 <% end %>
 
-<%= form_for [:admin, resource] do |f| %>
+<%= form_for [:admin, resource], multipart: true do |f| %>
   <div class="row" data-hook="admin_post_form_fields">
-    <div class="col-lg-6" data-hook="admin_post_form_left">
+    <div class="col-lg-12" data-hook="admin_post_form_left">
       <div class="form-group">
         <%= f.label :title %> <span class="required">*</span>
         <%= f.text_field :title, class: 'form-control' %>
@@ -24,7 +24,7 @@
       </div>
     </div>
 
-    <div class="col-lg-6" data-hook="admin_post_form_right">
+    <div class="col-lg-12" data-hook="admin_post_form_right">
 
       <div class="checkbox form-check">
         <%= f.label :published, { class: 'form-check-label' } do %>
@@ -44,6 +44,19 @@
           </div>
         <% end %>
       </div>
+
+      <div class="form-group">
+        <%= f.label :image, { class: 'form-label' } do %>
+          Image
+          <%= f.file_field :image, { class: 'form-control mt-3' }%>
+        <% end %>
+        <%- if @post.image.attached? %>
+          <div class="post-image">
+            <%= image_tag(@post.image.service_url) %>
+          </div>
+        <% end %>
+      </div>
+
     </div>
   </div>
 
@@ -75,3 +88,4 @@
 
   <%= render "spree/admin/shared/#{resource.new_record? ? 'new' : 'edit'}_resource_links" %>
 <% end %>
+

@@ -1,5 +1,14 @@
-<% content_for :post_title do %>
-  New Post
-<% end %>
+<div class="row">
+  <div class="col-md-12">
+    <h1 class="float-left">New Post</h1>
+  </div>
+</div>
 
-<%= render 'form', resource: @post %>
+<hr>
+
+<div class="row">
+  <div class="col-md-12">
+    <%= render 'form', resource: @post %>
+  </div>
+</div>
+
