@@ -1,0 +1,43 @@
+<div class="posts">
+  <div class="row">
+    <div class="col-md-12">
+      <h3 class="breadcrumb">
+        <%= link_to "Home", "/" %>
+        >>
+        <%= link_to "Blog", "/blog" %>
+        >>
+        <%= @post.title %>
+      </h3>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 mb-5">
+        <center>
+          <%= image_tag(@post.image.service_url) %>
+        </center>
+      </div>
+      <div class="col-md-12">
+        <h1><%= @post.title %></h1>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-md-12 mt-3">
+        <%= @post.body.html_safe %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 mt-5">
+        <div class="well">
+          Posted by
+          <b><%= @post.author %></b>
+          on
+          <b><%= @post.created_at.strftime("%D") %></b>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

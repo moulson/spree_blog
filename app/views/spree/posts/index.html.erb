@@ -1,0 +1,17 @@
+<div class="posts">
+  <div class="row">
+    <div class="col-md-12">
+      <h3 class="breadcrumb">
+        <%= link_to "Home", "/" %> >> <%= link_to "Blog", "/blog" %>
+      </h3>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <%- @posts.each do |post| %>
+        <%= render 'post', post: post %>
+      <% end %>
+    </div>
+  </div>
+</div>
+

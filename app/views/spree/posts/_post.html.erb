@@ -1,0 +1,8 @@
+<%- if post.image.attached? %>
+  <div class="col-md-3">
+    <%= link_to image_tag(post.image.service_url), spree.post_path(post) %>
+    <h4><%= link_to post.title, spree.post_path(post) %></h4>
+    <div class="breadcrumb"><center>Posted <b><%= post.created_at.strftime("%D") %></b></center></div>
+  </div>
+<% end %>
+
