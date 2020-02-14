@@ -1,0 +1,14 @@
+<% content_for :head do -%>
+  <%- if @post.meta_title.present? -%>
+    <meta name="title" content="<%= @post.meta_title %>">
+  <%- else -%>
+    <meta name="title" content="<%= @post.title %>">
+  <%- end -%>
+  <meta name="keywords" content="<%= @post.meta_keywords %>">
+  <meta name="description" content="<%= @post.meta_description %>">
+<% end -%>
+
+<h1><%= @post.title %></h1>
+<div id="post_content">
+  <%= raw @post.body %>
+</div>

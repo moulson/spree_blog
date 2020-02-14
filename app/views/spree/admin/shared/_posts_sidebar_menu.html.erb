@@ -1,0 +1,5 @@
+<% if current_spree_user.admin? %>
+  <ul class="nav nav-sidebar border-bottom">
+    <%= tab "Blog", url: spree.admin_posts_url, icon: 'pencil', label: "Blog" %>
+  </ul>
+<% end %>
