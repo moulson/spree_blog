@@ -7,7 +7,7 @@ module Spree
     end
 
     def show
-      if current_spree_user.admin?
+      if current_spree_user.present? && current_spree_user.admin?
         @post = Spree::Post.friendly.find(params[:id])
       else
         @post = Spree::Post.by_store(current_store).published.friendly.find(params[:id])
