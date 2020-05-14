@@ -12,6 +12,8 @@ module SpreeBlog
       end
     end
 
+    config.assets.paths << File.expand_path("../../assets/images", __FILE__)
     config.to_prepare(&method(:activate).to_proc)
+
   end
 end

@@ -15,6 +15,16 @@ class Spree::Post < ActiveRecord::Base
 
   scope :by_store, ->(store) { joins(:stores).where('spree_posts_stores.store_id = ?', store) }
 
+  def self.available
+    t = Time.now
+    published.where('(start_date IS NULL OR start_date <= ?) AND (stop_date IS NULL OR stop_date >= ?)', t, t)
+  end
+
+  def available?
+    t = Time.now
+    published? && (start_date.nil? || start_date <= t) && (stop_date.nil? || stop_date >= t)
+  end
+
   def author
     user.email
   end
@@ -23,6 +33,8 @@ class Spree::Post < ActiveRecord::Base
     if image.attached?
       image.attachment.variant(resize: '100x100>').processed.service_url
     end
+  rescue
+    "noimage.svg"
   end
 
   def set_slug

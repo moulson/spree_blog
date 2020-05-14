@@ -29,13 +29,13 @@
           </tr>
         </thead>
         <tbody>
-          <% @posts.each do |post| %>
+          <% @posts.reorder(created_at: :desc).each do |post| %>
             <tr data-hook="admin_posts_index_rows" class="<%= cycle('odd', 'even') %>" id="<%= dom_id post %>">
               <td><%- if post.image.attached? %><%= image_tag(post.thumb, style: "object-fit: contain;") %><% end %></td>
               <td><%= post.title %></td>
               <td class="text-center"><%= post.author %></td>
               <td class="text-center"><%= post.created_at.strftime("%D") %></td>
-              <td class="text-center"><%= content_tag(:i, '', class: 'icon icon-ok') if post.published %></td>
+              <td class="text-center"><%= content_tag(:i, '', class: 'icon icon-ok') if post.available? %></td>
               <td class="actions text-right" data-hook="admin_posts_index_row_actions">
                 <%= link_to_edit post, no_text: true %>
                 <% if defined?(SpreeGlobalize) %>

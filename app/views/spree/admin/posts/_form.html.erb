@@ -4,6 +4,7 @@
 
 <%= form_for [:admin, resource], multipart: true do |f| %>
   <div class="row" data-hook="admin_post_form_fields">
+
     <div class="col-lg-12" data-hook="admin_post_form_left">
       <div class="form-group">
         <%= f.label :title %> <span class="required">*</span>
@@ -25,14 +26,38 @@
     </div>
 
     <div class="col-lg-12" data-hook="admin_post_form_right">
-
       <div class="checkbox form-check">
         <%= f.label :published, { class: 'form-check-label' } do %>
           <%= f.check_box :published, { class: 'form-check-input' }%>
           <%= Spree::Page.human_attribute_name(:published) %>
         <% end %>
       </div>
+    </div>
 
+    <div class="col-lg-12 mt-3">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="form-group">
+            <%= f.label :start_date, { class: 'form-label' } do %>
+              Scheduled Start Date
+              <%= f.datetime_select :start_date, { ampm: true, prompt: true, order: [:month, :day, :year], start_year: 2020 }, class: 'form-control mt-3' %>
+              <%= f.error_message_on :start_date %>
+            <% end %>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="form-group">
+            <%= f.label :stop_date, { class: 'form-label' } do %>
+              Scheduled Stop Date
+              <%= f.datetime_select :stop_date, { ampm: true, prompt: true, order: [:month, :day, :year], start_year: 2020 }, class: 'form-control mt-3' %>
+              <%= f.error_message_on :stop_date %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-12">
       <div class="form-group mt-3">
         <%= f.label :stores, plural_resource_name(Spree::Store) %>
         <% Spree::Store.all.each do |store| %>
@@ -56,8 +81,8 @@
           </div>
         <% end %>
       </div>
-
     </div>
+
   </div>
 
   <div class="row" data-hook="admin_post_form_meta">
